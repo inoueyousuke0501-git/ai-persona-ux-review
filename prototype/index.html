@@ -1,0 +1,618 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AIペルソナUXレビュー</title>
+    <meta name="description" content="AIペルソナでUI案A/Bを比較し、実ユーザー調査前の仮説生成を支援するMVPデモ。" />
+    <style>
+      :root {
+        --ink: #17201c;
+        --paper: #fbfaf7;
+        --linen: #f2eee6;
+        --line: rgba(23, 32, 28, 0.1);
+        --ocean: #2f6f8f;
+        --moss: #4d6b57;
+        --signal: #d96f32;
+        --gold: #d9a441;
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        color: var(--ink);
+        background: linear-gradient(180deg, #f6f2ea 0%, #eef5f2 100%);
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      button { font: inherit; }
+
+      .top {
+        border-bottom: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.82);
+        backdrop-filter: blur(18px);
+      }
+
+      .wrap {
+        width: min(1320px, calc(100% - 32px));
+        margin: 0 auto;
+      }
+
+      .top-inner {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 430px;
+        gap: 28px;
+        align-items: center;
+        padding: 22px 0;
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        border-radius: 7px;
+        padding: 6px 10px;
+        background: rgba(217, 111, 50, 0.1);
+        color: #a94c20;
+        font-size: 12px;
+        font-weight: 800;
+      }
+
+      h1 {
+        margin: 10px 0 0;
+        font-size: clamp(28px, 4vw, 42px);
+        line-height: 1.12;
+        letter-spacing: 0;
+      }
+
+      p { margin: 0; }
+
+      .lead {
+        max-width: 780px;
+        margin-top: 10px;
+        color: rgba(23, 32, 28, 0.68);
+        font-size: 14px;
+        line-height: 1.75;
+      }
+
+      .trust-box {
+        display: grid;
+        gap: 10px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--paper);
+        padding: 14px;
+      }
+
+      .trust-row {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        color: rgba(23, 32, 28, 0.72);
+        font-size: 13px;
+        line-height: 1.55;
+      }
+
+      .dot {
+        flex: 0 0 auto;
+        width: 10px;
+        height: 10px;
+        margin-top: 5px;
+        border-radius: 999px;
+        background: var(--moss);
+      }
+
+      .shell {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 372px;
+        gap: 22px;
+        padding: 22px 0 34px;
+      }
+
+      .panel {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.96);
+        box-shadow: 0 18px 48px rgba(23, 32, 28, 0.08);
+      }
+
+      .panel-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        min-height: 62px;
+        border-bottom: 1px solid var(--line);
+        padding: 14px 16px;
+      }
+
+      .title {
+        font-size: 14px;
+        font-weight: 850;
+      }
+
+      .sub {
+        margin-top: 3px;
+        color: rgba(23, 32, 28, 0.55);
+        font-size: 12px;
+        line-height: 1.45;
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        white-space: nowrap;
+        border-radius: 7px;
+        background: var(--linen);
+        padding: 6px 9px;
+        color: rgba(23, 32, 28, 0.72);
+        font-size: 12px;
+        font-weight: 800;
+      }
+
+      .grid-ab {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+      }
+
+      .preview-frame {
+        display: grid;
+        grid-template-columns: 48% 1fr;
+        gap: 14px;
+        padding: 16px;
+      }
+
+      .phone-stage {
+        display: grid;
+        place-items: center;
+        min-height: 430px;
+        border: 1px solid rgba(23, 32, 28, 0.08);
+        border-radius: 8px;
+        background: linear-gradient(135deg, #f7f4ed, #edf5f2);
+        overflow: hidden;
+      }
+
+      .phone-stage img {
+        width: min(82%, 280px);
+        height: auto;
+        filter: drop-shadow(0 22px 28px rgba(23, 32, 28, 0.2));
+      }
+
+      .criteria {
+        display: grid;
+        align-content: start;
+        gap: 12px;
+        min-width: 0;
+      }
+
+      .metric {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 12px;
+        background: var(--paper);
+      }
+
+      .metric-top {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        font-size: 13px;
+        font-weight: 800;
+      }
+
+      .bar {
+        height: 8px;
+        margin-top: 10px;
+        overflow: hidden;
+        border-radius: 999px;
+        background: rgba(23, 32, 28, 0.09);
+      }
+
+      .bar span {
+        display: block;
+        height: 100%;
+        border-radius: 999px;
+      }
+
+      .controls {
+        margin-top: 16px;
+        padding: 16px;
+      }
+
+      .controls-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 16px;
+      }
+
+      .run {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 42px;
+        border: 0;
+        border-radius: 7px;
+        background: var(--ink);
+        color: white;
+        padding: 0 18px;
+        font-size: 14px;
+        font-weight: 850;
+        cursor: pointer;
+      }
+
+      .run:hover { background: #26332e; }
+
+      .control-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+
+      .label {
+        margin-bottom: 8px;
+        color: rgba(23, 32, 28, 0.6);
+        font-size: 12px;
+        font-weight: 850;
+      }
+
+      .seg {
+        display: grid;
+        gap: 8px;
+      }
+
+      .seg.three { grid-template-columns: repeat(3, 1fr); }
+      .seg.two { grid-template-columns: repeat(2, 1fr); }
+
+      .choice {
+        min-height: 40px;
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        background: var(--linen);
+        color: rgba(23, 32, 28, 0.74);
+        font-size: 14px;
+        font-weight: 850;
+      }
+
+      .choice.active-blue { border-color: var(--ocean); background: var(--ocean); color: white; }
+      .choice.active-green { border-color: var(--moss); background: var(--moss); color: white; }
+      .choice.locked { cursor: not-allowed; opacity: 0.54; }
+
+      .summary {
+        margin-top: 16px;
+        overflow: hidden;
+      }
+
+      .summary-body {
+        display: grid;
+        grid-template-columns: 280px minmax(0, 1fr);
+        gap: 16px;
+        padding: 16px;
+      }
+
+      .winner {
+        border-radius: 8px;
+        background: #15251f;
+        color: white;
+        padding: 18px;
+      }
+
+      .winner .sub { color: rgba(255, 255, 255, 0.65); }
+      .winner strong { display: block; margin-top: 10px; font-size: 52px; line-height: 1; }
+
+      .vote-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+      }
+
+      .hypothesis {
+        margin-top: 14px;
+        border: 1px solid rgba(217, 111, 50, 0.22);
+        border-radius: 8px;
+        background: rgba(217, 111, 50, 0.06);
+        padding: 14px;
+        color: rgba(23, 32, 28, 0.74);
+        font-size: 14px;
+        line-height: 1.75;
+      }
+
+      .personas {
+        margin-top: 16px;
+      }
+
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+        padding: 16px;
+      }
+
+      .card {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: white;
+        padding: 14px;
+      }
+
+      .card-top {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        margin-bottom: 10px;
+      }
+
+      .comment {
+        color: rgba(23, 32, 28, 0.74);
+        font-size: 14px;
+        line-height: 1.7;
+      }
+
+      .concern {
+        margin-top: 10px;
+        border-top: 1px solid var(--line);
+        padding-top: 10px;
+        color: rgba(23, 32, 28, 0.56);
+        font-size: 12px;
+        line-height: 1.65;
+      }
+
+      aside {
+        position: sticky;
+        top: 18px;
+        align-self: start;
+        display: grid;
+        gap: 14px;
+      }
+
+      .side {
+        padding: 16px;
+      }
+
+      .kpi {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        overflow: hidden;
+        margin-top: 12px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        text-align: center;
+      }
+
+      .kpi div { padding: 12px 8px; }
+      .kpi div + div { border-left: 1px solid var(--line); }
+      .kpi strong { display: block; font-size: 22px; }
+      .kpi span { color: rgba(23, 32, 28, 0.55); font-size: 11px; }
+
+      .flow {
+        display: grid;
+        gap: 10px;
+        margin-top: 14px;
+      }
+
+      .flow-row {
+        display: grid;
+        grid-template-columns: 28px 1fr;
+        gap: 10px;
+        align-items: start;
+        color: rgba(23, 32, 28, 0.72);
+        font-size: 13px;
+        line-height: 1.55;
+      }
+
+      .num {
+        display: grid;
+        place-items: center;
+        width: 26px;
+        height: 26px;
+        border-radius: 7px;
+        background: var(--linen);
+        font-size: 12px;
+        font-weight: 900;
+      }
+
+      .dark {
+        background: var(--ink);
+        color: white;
+      }
+
+      .dark .sub { color: rgba(255, 255, 255, 0.65); }
+      .dark button {
+        width: 100%;
+        min-height: 40px;
+        margin-top: 14px;
+        border: 0;
+        border-radius: 7px;
+        background: white;
+        color: var(--ink);
+        font-size: 14px;
+        font-weight: 850;
+      }
+
+      @media (max-width: 1080px) {
+        .top-inner,
+        .shell,
+        .grid-ab,
+        .control-grid,
+        .summary-body {
+          grid-template-columns: 1fr;
+        }
+
+        aside { position: static; margin-top: 18px; }
+      }
+
+      @media (max-width: 680px) {
+        .wrap { width: min(100% - 20px, 1320px); }
+        .preview-frame,
+        .cards,
+        .vote-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .controls-head {
+          align-items: stretch;
+          flex-direction: column;
+        }
+
+        .phone-stage { min-height: 360px; }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="top">
+      <div class="wrap top-inner">
+        <div>
+          <div class="badge">MVP DEMO / 仮説生成支援</div>
+          <h1>AIペルソナUXレビュー</h1>
+          <p class="lead">
+            銀行アプリのトップページA/Bを、マス個人20人のAIペルソナが比較。社内の感覚だけで決めがちなUI/UX・キャンペーン判断を、ユーザー調査前の仮説に変換します。
+          </p>
+        </div>
+        <div class="trust-box">
+          <div class="trust-row"><span class="dot"></span><span>実ユーザー調査の代替ではなく、調査前に論点を絞るための壁打ちツールです。</span></div>
+          <div class="trust-row"><span class="dot"></span><span>デモ素材は架空の銀行アプリ。社内機密画像・実顧客データは扱いません。</span></div>
+          <div class="trust-row"><span class="dot"></span><span>OpenAI連携時は画像解析、ペルソナ生成、レビュー根拠の構造化をAPI化します。</span></div>
+        </div>
+      </div>
+    </header>
+
+    <div class="wrap shell">
+      <main>
+        <section class="grid-ab">
+          <article class="panel">
+            <div class="panel-head">
+              <div><div class="title">UI案 A / 残高中心型</div><div class="sub">疑似アップロード済み: banking-home-a.png</div></div>
+              <span class="pill">読み込み済み</span>
+            </div>
+            <div class="preview-frame">
+              <div class="phone-stage"><img src="./assets/bank-a.svg" alt="銀行アプリ案A" /></div>
+              <div class="criteria">
+                <div class="metric"><div class="metric-top"><span>残高の視認性</span><strong>92</strong></div><div class="bar"><span style="width:92%;background:var(--ocean)"></span></div></div>
+                <div class="metric"><div class="metric-top"><span>安心感・信頼感</span><strong>86</strong></div><div class="bar"><span style="width:86%;background:var(--moss)"></span></div></div>
+                <div class="metric"><div class="metric-top"><span>送金導線の強さ</span><strong>64</strong></div><div class="bar"><span style="width:64%;background:var(--signal)"></span></div></div>
+              </div>
+            </div>
+          </article>
+
+          <article class="panel">
+            <div class="panel-head">
+              <div><div class="title">UI案 B / 行動喚起型</div><div class="sub">疑似アップロード済み: banking-home-b.png</div></div>
+              <span class="pill">読み込み済み</span>
+            </div>
+            <div class="preview-frame">
+              <div class="phone-stage"><img src="./assets/bank-b.svg" alt="銀行アプリ案B" /></div>
+              <div class="criteria">
+                <div class="metric"><div class="metric-top"><span>初動理解</span><strong>88</strong></div><div class="bar"><span style="width:88%;background:var(--ocean)"></span></div></div>
+                <div class="metric"><div class="metric-top"><span>送金導線の強さ</span><strong>94</strong></div><div class="bar"><span style="width:94%;background:var(--signal)"></span></div></div>
+                <div class="metric"><div class="metric-top"><span>落ち着き・信頼感</span><strong>72</strong></div><div class="bar"><span style="width:72%;background:var(--moss)"></span></div></div>
+              </div>
+            </div>
+          </article>
+        </section>
+
+        <section class="panel controls">
+          <div class="controls-head">
+            <div>
+              <div class="title">レビュー設定</div>
+              <div class="sub">MVPではマス個人20人モードのみ実行。100人/1000人と属性セグメントは拡張UIとして表示しています。</div>
+            </div>
+            <button class="run" id="run">AIレビューを再実行</button>
+          </div>
+          <div class="control-grid">
+            <div><div class="label">人数モード</div><div class="seg three"><button class="choice active-blue">20人</button><button class="choice locked">100人</button><button class="choice locked">1000人</button></div></div>
+            <div><div class="label">セグメント</div><div class="seg two"><button class="choice active-green">マス個人</button><button class="choice locked">シニア層</button><button class="choice locked">富裕層</button><button class="choice locked">法人担当者</button></div></div>
+          </div>
+        </section>
+
+        <section class="panel summary">
+          <div class="panel-head"><div><div class="title">結果サマリ</div><div class="sub">20人のAIペルソナ比較から生成した仮説</div></div><span class="pill">平均確信度 76%</span></div>
+          <div class="summary-body">
+            <div class="winner"><div class="sub">優勢案</div><strong>案B</strong><p class="lead">送金・支払いなど行動目的が明確なユーザーにはBが強い。残高確認だけのユーザーにはAの安心感が残る。</p></div>
+            <div>
+              <div class="vote-grid">
+                <div class="metric"><div class="metric-top"><span>案A支持</span><strong>7人</strong></div><div class="bar"><span style="width:35%;background:var(--ocean)"></span></div></div>
+                <div class="metric"><div class="metric-top"><span>案B支持</span><strong>11人</strong></div><div class="bar"><span style="width:55%;background:var(--signal)"></span></div></div>
+                <div class="metric"><div class="metric-top"><span>同等</span><strong>2人</strong></div><div class="bar"><span style="width:10%;background:var(--moss)"></span></div></div>
+              </div>
+              <div class="hypothesis">
+                次の検証仮説: トップページの役割を「残高確認」ではなく「次の金融行動への入口」と定義すると、Bは送金完了率を上げる可能性があります。一方で、銀行アプリとしての安心感を損なわないため、Bには残高・引落予定の説明密度を少し足すべきです。
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel personas">
+          <div class="panel-head"><div><div class="title">ペルソナ別コメント</div><div class="sub">調査設計に使える論点へ分解</div></div></div>
+          <div class="cards" id="cards"></div>
+        </section>
+      </main>
+
+      <aside>
+        <section class="panel side">
+          <div class="title">このデモで伝える価値</div>
+          <div class="kpi"><div><strong>1日</strong><span>仮説化</span></div><div><strong>20</strong><span>視点</span></div><div><strong>0</strong><span>顧客情報</span></div></div>
+          <div class="flow">
+            <div class="flow-row"><span class="num">1</span><span>UI案・キャンペーン案を投入し、想定ユーザーごとの第一印象を集める。</span></div>
+            <div class="flow-row"><span class="num">2</span><span>賛否、懸念、確認したい情報を構造化し、社内議論の論点を整理する。</span></div>
+            <div class="flow-row"><span class="num">3</span><span>本調査や上長レビューの前に、改善案と質問票のたたき台を作る。</span></div>
+          </div>
+        </section>
+        <section class="panel side">
+          <div class="title">拡張イメージ</div>
+          <div class="flow">
+            <div class="flow-row"><span class="num">A</span><span>複数人ペルソナ調査: 属性・利用目的・金融リテラシー別にレビュー。</span></div>
+            <div class="flow-row"><span class="num">B</span><span>上司/取引先ペルソナ: 人柄・重視点を登録し、事前壁打ちに活用。</span></div>
+            <div class="flow-row"><span class="num">C</span><span>OpenAI連携: 画像理解、根拠抽出、改善案生成、質問票作成まで自動化。</span></div>
+          </div>
+        </section>
+        <section class="panel side dark">
+          <div class="title">社内提案メッセージ</div>
+          <p class="lead">感覚で決める前に、AIペルソナで論点を可視化する。ユーザー調査が難しい現場ほど、最初の仮説品質が効く。</p>
+          <button type="button">企画書とセットで提案</button>
+        </section>
+      </aside>
+    </div>
+
+    <script>
+      const personas = [
+        ["忙しい会社員", "30代 / 給与口座 / 月数回送金", "B", "送金ボタンが強く、目的がある時に迷わず進めそうです。", "残高中心で確認したい人には、少し急かされる印象が残ります。"],
+        ["慎重な家計管理者", "40代 / 引落管理重視 / リスク回避", "A", "残高と最近の取引が先に見えるAの方が、銀行アプリとして安心できます。", "送金したい時はBより1手遅く感じる可能性があります。"],
+        ["初回利用者", "20代 / アプリ銀行に不慣れ / 第一印象重視", "B", "Bは『次に何ができるか』が早く分かり、オンボーディングの負荷が低いです。", "銀行名や安全性の表現が薄いと、信頼形成で不利になります。"],
+        ["残高確認だけのユーザー", "50代 / 月末に確認 / 操作は少なめ", "A", "Aは残高確認の目的に対して最短で、余計な判断を求めません。", "キャンペーンや次アクションの訴求は届きにくいです。"],
+        ["キャンペーン反応層", "30代 / ポイント・特典に敏感", "B", "Bのカード型導線なら、送金特典や支払いキャンペーンも自然に差し込めます。", "訴求が増えると広告っぽくなり、金融サービスの信頼感を下げます。"],
+        ["比較検討する管理職", "40代 / 社内承認目線 / 説明責任重視", "同等", "Aは安定、Bは行動喚起。目的KPIを送金率に置くか、信頼維持に置くかで判断が変わります。", "意思決定には対象KPIとユーザーセグメントの合意が必要です。"]
+      ];
+
+      function renderCards() {
+        document.querySelector("#cards").innerHTML = personas.map(([name, profile, pref, comment, concern]) => `
+          <article class="card">
+            <div class="card-top">
+              <div><div class="title">${name}</div><div class="sub">${profile}</div></div>
+              <span class="pill">${pref === "同等" ? "同等" : `案${pref}`}</span>
+            </div>
+            <p class="comment">${comment}</p>
+            <p class="concern">懸念: ${concern}</p>
+          </article>
+        `).join("");
+      }
+
+      document.querySelector("#run").addEventListener("click", () => {
+        const button = document.querySelector("#run");
+        button.textContent = "レビュー中...";
+        button.disabled = true;
+        setTimeout(() => {
+          button.textContent = "AIレビューを再実行";
+          button.disabled = false;
+          document.querySelector(".summary").scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 650);
+      });
+
+      renderCards();
+    </script>
+  </body>
+</html>
