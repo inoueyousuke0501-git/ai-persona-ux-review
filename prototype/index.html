@@ -254,6 +254,39 @@
         gap: 16px;
       }
 
+      .axis-panel {
+        margin-top: 16px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--paper);
+        padding: 14px;
+      }
+
+      .axis-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 8px;
+        margin-top: 10px;
+      }
+
+      .axis-chip {
+        min-height: 42px;
+        border: 1px solid rgba(47, 111, 143, 0.18);
+        border-radius: 7px;
+        background: #ffffff;
+        color: rgba(23, 32, 28, 0.78);
+        padding: 0 10px;
+        font-size: 13px;
+        font-weight: 820;
+        text-align: left;
+      }
+
+      .axis-chip.active {
+        border-color: var(--ocean);
+        background: rgba(47, 111, 143, 0.1);
+        color: #1f536d;
+      }
+
       .label {
         margin-bottom: 8px;
         color: rgba(23, 32, 28, 0.6);
@@ -389,6 +422,35 @@
       .kpi strong { display: block; font-size: 22px; }
       .kpi span { color: rgba(23, 32, 28, 0.55); font-size: 11px; }
 
+      .population {
+        display: grid;
+        gap: 8px;
+        margin-top: 12px;
+      }
+
+      .pop-row {
+        display: grid;
+        grid-template-columns: 54px 1fr 38px;
+        gap: 8px;
+        align-items: center;
+        font-size: 12px;
+        color: rgba(23, 32, 28, 0.66);
+      }
+
+      .pop-bar {
+        height: 8px;
+        overflow: hidden;
+        border-radius: 999px;
+        background: rgba(23, 32, 28, 0.08);
+      }
+
+      .pop-bar span {
+        display: block;
+        height: 100%;
+        border-radius: 999px;
+        background: var(--moss);
+      }
+
       .flow {
         display: grid;
         gap: 10px;
@@ -450,7 +512,8 @@
         .wrap { width: min(100% - 20px, 1320px); }
         .preview-frame,
         .cards,
-        .vote-grid {
+        .vote-grid,
+        .axis-grid {
           grid-template-columns: 1fr;
         }
 
@@ -470,13 +533,13 @@
           <div class="badge">MVP DEMO / 仮説生成支援</div>
           <h1>AIペルソナUXレビュー</h1>
           <p class="lead">
-            銀行アプリのトップページA/Bを、マス個人20人のAIペルソナが比較。社内の感覚だけで決めがちなUI/UX・キャンペーン判断を、ユーザー調査前の仮説に変換します。
+            銀行インターネットバンキング利用者に近い20人のAIペルソナが、トップページA/Bを設定した評価軸で比較。社内の感覚だけで決めがちなUI/UX判断を、ユーザー調査前の仮説に変換します。
           </p>
         </div>
         <div class="trust-box">
-          <div class="trust-row"><span class="dot"></span><span>実ユーザー調査の代替ではなく、調査前に論点を絞るための壁打ちツールです。</span></div>
+          <div class="trust-row"><span class="dot"></span><span>母集団は銀行IB利用者を想定。平均年齢50歳前後、日本の人口分布に近い構成で疑似レビューします。</span></div>
           <div class="trust-row"><span class="dot"></span><span>デモ素材は架空の銀行アプリ。社内機密画像・実顧客データは扱いません。</span></div>
-          <div class="trust-row"><span class="dot"></span><span>OpenAI連携時は画像解析、ペルソナ生成、レビュー根拠の構造化をAPI化します。</span></div>
+          <div class="trust-row"><span class="dot"></span><span>評価軸は「毎日使いたいか」「毎月使いたいか」など、施策目的に合わせて設定できます。</span></div>
         </div>
       </div>
     </header>
@@ -492,9 +555,9 @@
             <div class="preview-frame">
               <div class="phone-stage"><img src="./assets/bank-a.svg" alt="銀行アプリ案A" /></div>
               <div class="criteria">
-                <div class="metric"><div class="metric-top"><span>残高の視認性</span><strong>92</strong></div><div class="bar"><span style="width:92%;background:var(--ocean)"></span></div></div>
-                <div class="metric"><div class="metric-top"><span>安心感・信頼感</span><strong>86</strong></div><div class="bar"><span style="width:86%;background:var(--moss)"></span></div></div>
-                <div class="metric"><div class="metric-top"><span>送金導線の強さ</span><strong>64</strong></div><div class="bar"><span style="width:64%;background:var(--signal)"></span></div></div>
+                <div class="metric"><div class="metric-top"><span>毎月確認したい</span><strong>91</strong></div><div class="bar"><span style="width:91%;background:var(--ocean)"></span></div></div>
+                <div class="metric"><div class="metric-top"><span>安心して見られる</span><strong>88</strong></div><div class="bar"><span style="width:88%;background:var(--moss)"></span></div></div>
+                <div class="metric"><div class="metric-top"><span>毎日開きたい</span><strong>62</strong></div><div class="bar"><span style="width:62%;background:var(--signal)"></span></div></div>
               </div>
             </div>
           </article>
@@ -507,9 +570,9 @@
             <div class="preview-frame">
               <div class="phone-stage"><img src="./assets/bank-b.svg" alt="銀行アプリ案B" /></div>
               <div class="criteria">
-                <div class="metric"><div class="metric-top"><span>初動理解</span><strong>88</strong></div><div class="bar"><span style="width:88%;background:var(--ocean)"></span></div></div>
-                <div class="metric"><div class="metric-top"><span>送金導線の強さ</span><strong>94</strong></div><div class="bar"><span style="width:94%;background:var(--signal)"></span></div></div>
-                <div class="metric"><div class="metric-top"><span>落ち着き・信頼感</span><strong>72</strong></div><div class="bar"><span style="width:72%;background:var(--moss)"></span></div></div>
+                <div class="metric"><div class="metric-top"><span>毎日開きたい</span><strong>84</strong></div><div class="bar"><span style="width:84%;background:var(--signal)"></span></div></div>
+                <div class="metric"><div class="metric-top"><span>次の行動が分かる</span><strong>89</strong></div><div class="bar"><span style="width:89%;background:var(--ocean)"></span></div></div>
+                <div class="metric"><div class="metric-top"><span>安心して見られる</span><strong>73</strong></div><div class="bar"><span style="width:73%;background:var(--moss)"></span></div></div>
               </div>
             </div>
           </article>
@@ -519,28 +582,41 @@
           <div class="controls-head">
             <div>
               <div class="title">レビュー設定</div>
-              <div class="sub">MVPではマス個人20人モードのみ実行。100人/1000人と属性セグメントは拡張UIとして表示しています。</div>
+              <div class="sub">MVPでは銀行IB利用者20人モードのみ実行。評価軸は施策目的に合わせて選択・追加できる想定です。</div>
             </div>
             <button class="run" id="run">AIレビューを再実行</button>
           </div>
           <div class="control-grid">
             <div><div class="label">人数モード</div><div class="seg three"><button class="choice active-blue">20人</button><button class="choice locked">100人</button><button class="choice locked">1000人</button></div></div>
-            <div><div class="label">セグメント</div><div class="seg two"><button class="choice active-green">マス個人</button><button class="choice locked">シニア層</button><button class="choice locked">富裕層</button><button class="choice locked">法人担当者</button></div></div>
+            <div><div class="label">母集団</div><div class="seg two"><button class="choice active-green">銀行IB利用者</button><button class="choice locked">シニア層</button><button class="choice locked">富裕層</button><button class="choice locked">法人担当者</button></div></div>
+          </div>
+          <div class="axis-panel">
+            <div class="label">評価軸テンプレート</div>
+            <div class="axis-grid">
+              <button class="axis-chip active">毎日使いたいか</button>
+              <button class="axis-chip active">毎月確認したいか</button>
+              <button class="axis-chip active">安心して見られるか</button>
+              <button class="axis-chip active">必要な情報に迷わないか</button>
+              <button class="axis-chip">キャンペーンに気づくか</button>
+              <button class="axis-chip">家族に勧められるか</button>
+              <button class="axis-chip">手続き前に不安がないか</button>
+              <button class="axis-chip">支出管理に役立つか</button>
+            </div>
           </div>
         </section>
 
         <section class="panel summary">
-          <div class="panel-head"><div><div class="title">結果サマリ</div><div class="sub">20人のAIペルソナ比較から生成した仮説</div></div><span class="pill">平均確信度 76%</span></div>
+          <div class="panel-head"><div><div class="title">結果サマリ</div><div class="sub">銀行IB利用者20人のAIペルソナ比較から生成した仮説</div></div><span class="pill">平均確信度 74%</span></div>
           <div class="summary-body">
-            <div class="winner"><div class="sub">優勢案</div><strong>案B</strong><p class="lead">送金・支払いなど行動目的が明確なユーザーにはBが強い。残高確認だけのユーザーにはAの安心感が残る。</p></div>
+            <div class="winner"><div class="sub">総合示唆</div><strong>B寄り</strong><p class="lead">日常接点化はB、月次確認と安心感はA。単純な勝敗ではなく、狙う利用頻度で評価が分かれる。</p></div>
             <div>
               <div class="vote-grid">
-                <div class="metric"><div class="metric-top"><span>案A支持</span><strong>7人</strong></div><div class="bar"><span style="width:35%;background:var(--ocean)"></span></div></div>
-                <div class="metric"><div class="metric-top"><span>案B支持</span><strong>11人</strong></div><div class="bar"><span style="width:55%;background:var(--signal)"></span></div></div>
-                <div class="metric"><div class="metric-top"><span>同等</span><strong>2人</strong></div><div class="bar"><span style="width:10%;background:var(--moss)"></span></div></div>
+                <div class="metric"><div class="metric-top"><span>毎日使いたい</span><strong>B 12人</strong></div><div class="bar"><span style="width:60%;background:var(--signal)"></span></div></div>
+                <div class="metric"><div class="metric-top"><span>毎月確認したい</span><strong>A 13人</strong></div><div class="bar"><span style="width:65%;background:var(--ocean)"></span></div></div>
+                <div class="metric"><div class="metric-top"><span>安心して見られる</span><strong>A 14人</strong></div><div class="bar"><span style="width:70%;background:var(--moss)"></span></div></div>
               </div>
               <div class="hypothesis">
-                次の検証仮説: トップページの役割を「残高確認」ではなく「次の金融行動への入口」と定義すると、Bは送金完了率を上げる可能性があります。一方で、銀行アプリとしての安心感を損なわないため、Bには残高・引落予定の説明密度を少し足すべきです。
+                次の検証仮説: 目的が「毎日開く接点づくり」ならBが有利。ただし銀行IB利用者の中心年齢を考えると、Aが持つ残高・入出金・引落予定の安心感は削れません。Bを採用する場合は、行動喚起よりも先に「今月確認すべきお金の状態」を置くハイブリッド案を検証すべきです。
               </div>
             </div>
           </div>
@@ -555,11 +631,19 @@
       <aside>
         <section class="panel side">
           <div class="title">このデモで伝える価値</div>
-          <div class="kpi"><div><strong>1日</strong><span>仮説化</span></div><div><strong>20</strong><span>視点</span></div><div><strong>0</strong><span>顧客情報</span></div></div>
+          <div class="kpi"><div><strong>50歳</strong><span>平均想定</span></div><div><strong>20</strong><span>IB利用者</span></div><div><strong>8</strong><span>評価軸</span></div></div>
+          <div class="population">
+            <div class="pop-row"><span>20代</span><div class="pop-bar"><span style="width:12%"></span></div><strong>2人</strong></div>
+            <div class="pop-row"><span>30代</span><div class="pop-bar"><span style="width:18%"></span></div><strong>3人</strong></div>
+            <div class="pop-row"><span>40代</span><div class="pop-bar"><span style="width:20%"></span></div><strong>4人</strong></div>
+            <div class="pop-row"><span>50代</span><div class="pop-bar"><span style="width:24%"></span></div><strong>5人</strong></div>
+            <div class="pop-row"><span>60代</span><div class="pop-bar"><span style="width:18%"></span></div><strong>4人</strong></div>
+            <div class="pop-row"><span>70代</span><div class="pop-bar"><span style="width:8%"></span></div><strong>2人</strong></div>
+          </div>
           <div class="flow">
-            <div class="flow-row"><span class="num">1</span><span>UI案・キャンペーン案を投入し、想定ユーザーごとの第一印象を集める。</span></div>
-            <div class="flow-row"><span class="num">2</span><span>賛否、懸念、確認したい情報を構造化し、社内議論の論点を整理する。</span></div>
-            <div class="flow-row"><span class="num">3</span><span>本調査や上長レビューの前に、改善案と質問票のたたき台を作る。</span></div>
+            <div class="flow-row"><span class="num">1</span><span>評価軸を先に設定し、勝敗ではなく「何の目的に強いか」を比較する。</span></div>
+            <div class="flow-row"><span class="num">2</span><span>年齢・利用頻度・金融リテラシーごとの違和感を構造化する。</span></div>
+            <div class="flow-row"><span class="num">3</span><span>本調査で聞くべき質問と、次に作るハイブリッド案を出す。</span></div>
           </div>
         </section>
         <section class="panel side">
@@ -580,12 +664,12 @@
 
     <script>
       const personas = [
-        ["忙しい会社員", "30代 / 給与口座 / 月数回送金", "B", "送金ボタンが強く、目的がある時に迷わず進めそうです。", "残高中心で確認したい人には、少し急かされる印象が残ります。"],
-        ["慎重な家計管理者", "40代 / 引落管理重視 / リスク回避", "A", "残高と最近の取引が先に見えるAの方が、銀行アプリとして安心できます。", "送金したい時はBより1手遅く感じる可能性があります。"],
-        ["初回利用者", "20代 / アプリ銀行に不慣れ / 第一印象重視", "B", "Bは『次に何ができるか』が早く分かり、オンボーディングの負荷が低いです。", "銀行名や安全性の表現が薄いと、信頼形成で不利になります。"],
-        ["残高確認だけのユーザー", "50代 / 月末に確認 / 操作は少なめ", "A", "Aは残高確認の目的に対して最短で、余計な判断を求めません。", "キャンペーンや次アクションの訴求は届きにくいです。"],
-        ["キャンペーン反応層", "30代 / ポイント・特典に敏感", "B", "Bのカード型導線なら、送金特典や支払いキャンペーンも自然に差し込めます。", "訴求が増えると広告っぽくなり、金融サービスの信頼感を下げます。"],
-        ["比較検討する管理職", "40代 / 社内承認目線 / 説明責任重視", "同等", "Aは安定、Bは行動喚起。目的KPIを送金率に置くか、信頼維持に置くかで判断が変わります。", "意思決定には対象KPIとユーザーセグメントの合意が必要です。"]
+        ["日次で残高を見る会社員", "30代 / 給与口座 / スマホ操作に慣れている", "B", "毎日開くならBの方が情報の入口が軽く、次に確認する場所も分かりやすいです。", "金融アプリとしての落ち着きはAの方が強く、Bは通知や販促が増えると疲れそうです。"],
+        ["月次で家計を確認する利用者", "50代 / 引落管理重視 / 毎月まとめて確認", "A", "月1回の確認では、残高・直近取引・引落予定が落ち着いて見えるAが安心です。", "日常的に開くきっかけは弱く、キャンペーンや注意喚起は見落とされそうです。"],
+        ["年金受給後の慎重派", "70代 / PC併用 / 不正利用への不安が強い", "A", "Aは大きな残高表示と取引履歴が先にあり、不安なく確認できる印象です。", "Bの大きな行動ボタンは便利ですが、誤操作を心配する可能性があります。"],
+        ["共働きの支出管理層", "40代 / 複数口座管理 / 支出把握が目的", "同等", "Aは確認、Bは行動に強いです。支出管理の観点では、どちらも月次サマリが不足しています。", "比較すべき軸は送金導線ではなく、支出変化・引落予定・家族共有の見やすさです。"],
+        ["キャンペーン反応層", "20代 / ポイント・特典に敏感 / アプリ利用頻度高", "B", "Bは毎日開くきっかけやキャンペーン接点を作りやすく、行動につながりそうです。", "銀行アプリで販促感が強すぎると、信頼より広告感が勝つリスクがあります。"],
+        ["地方在住の堅実利用者", "60代 / 店舗利用も残る / 月数回ログイン", "A", "Aは従来の通帳確認に近く、何を見ればよいか迷いにくいです。", "便利機能の発見性は低いため、Bのような補助導線を一部取り込む余地があります。"]
       ];
 
       function renderCards() {
