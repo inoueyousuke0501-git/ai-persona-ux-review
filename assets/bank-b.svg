@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="1320" viewBox="0 0 960 1320" fill="none">
+  <rect width="960" height="1320" rx="72" fill="#EEF4F2"/>
+  <rect x="54" y="48" width="852" height="1224" rx="56" fill="#FFFFFF"/>
+  <rect x="54" y="48" width="852" height="1224" rx="56" stroke="#D4E1DD" stroke-width="2"/>
+  <text x="104" y="132" fill="#18201D" font-family="Arial, sans-serif" font-size="28" font-weight="700">おはようございます</text>
+  <text x="104" y="182" fill="#5A6862" font-family="Arial, sans-serif" font-size="23">今日できる手続きをまとめました</text>
+  <circle cx="812" cy="140" r="42" fill="#F4F1EA"/>
+  <path d="M792 140h40M812 120v40" stroke="#2F6F8F" stroke-width="8" stroke-linecap="round"/>
+  <rect x="104" y="232" width="760" height="260" rx="36" fill="#F6F8F7"/>
+  <text x="144" y="296" fill="#5A6862" font-family="Arial, sans-serif" font-size="24">利用可能残高</text>
+  <text x="144" y="376" fill="#18201D" font-family="Arial, sans-serif" font-size="76" font-weight="850">¥1,284,650</text>
+  <path d="M146 426C248 386 322 462 416 420C522 372 596 388 666 354C732 322 786 314 830 326" stroke="#2F6F8F" stroke-width="12" stroke-linecap="round"/>
+  <rect x="104" y="532" width="760" height="132" rx="30" fill="#D96F32"/>
+  <text x="150" y="584" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="29" font-weight="850">今すぐ送金する</text>
+  <text x="150" y="624" fill="#FFEADB" font-family="Arial, sans-serif" font-size="22">登録済みの相手なら30秒で完了</text>
+  <text x="806" y="610" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="42" font-weight="700">›</text>
+  <text x="104" y="734" fill="#18201D" font-family="Arial, sans-serif" font-size="30" font-weight="850">よく使うメニュー</text>
+  <rect x="104" y="770" width="170" height="150" rx="28" fill="#0F3D4A"/>
+  <rect x="300" y="770" width="170" height="150" rx="28" fill="#EEF5F2"/>
+  <rect x="496" y="770" width="170" height="150" rx="28" fill="#EEF5F2"/>
+  <rect x="692" y="770" width="170" height="150" rx="28" fill="#EEF5F2"/>
+  <circle cx="154" cy="824" r="24" fill="#FFFFFF" fill-opacity=".2"/>
+  <circle cx="350" cy="824" r="24" fill="#2F6F8F"/>
+  <circle cx="546" cy="824" r="24" fill="#4D6B57"/>
+  <circle cx="742" cy="824" r="24" fill="#D96F32"/>
+  <text x="132" y="886" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="24" font-weight="800">送金</text>
+  <text x="324" y="886" fill="#18201D" font-family="Arial, sans-serif" font-size="24" font-weight="800">明細</text>
+  <text x="520" y="886" fill="#18201D" font-family="Arial, sans-serif" font-size="24" font-weight="800">支払</text>
+  <text x="716" y="886" fill="#18201D" font-family="Arial, sans-serif" font-size="24" font-weight="800">資産</text>
+  <rect x="104" y="976" width="760" height="190" rx="32" fill="#FFFFFF" stroke="#E2E9E6"/>
+  <text x="144" y="1034" fill="#18201D" font-family="Arial, sans-serif" font-size="28" font-weight="850">次の確認</text>
+  <text x="144" y="1080" fill="#5A6862" font-family="Arial, sans-serif" font-size="23">カード引落予定 ¥82,400</text>
+  <rect x="144" y="1114" width="244" height="42" rx="21" fill="#EEF5F2"/>
+  <text x="178" y="1143" fill="#2F6F8F" font-family="Arial, sans-serif" font-size="21" font-weight="800">詳細を見る</text>
+  <rect x="104" y="1204" width="760" height="18" rx="9" fill="#E5ECE8"/>
+</svg>

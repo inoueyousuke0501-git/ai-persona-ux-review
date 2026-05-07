@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="1320" viewBox="0 0 960 1320" fill="none">
+  <rect width="960" height="1320" rx="72" fill="#F4F1EA"/>
+  <rect x="54" y="48" width="852" height="1224" rx="56" fill="#FFFFFF"/>
+  <rect x="54" y="48" width="852" height="1224" rx="56" stroke="#D8D2C6" stroke-width="2"/>
+  <rect x="104" y="94" width="760" height="330" rx="36" fill="#0F3D4A"/>
+  <circle cx="776" cy="156" r="34" fill="#F8C14A"/>
+  <circle cx="808" cy="156" r="34" fill="#D96F32" fill-opacity=".86"/>
+  <text x="136" y="154" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="34" font-weight="700">Minato Bank</text>
+  <text x="136" y="216" fill="#C8E3E9" font-family="Arial, sans-serif" font-size="26">普通預金</text>
+  <text x="136" y="292" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="72" font-weight="800">¥1,284,650</text>
+  <text x="136" y="354" fill="#C8E3E9" font-family="Arial, sans-serif" font-size="26">今月の入出金 +¥84,200</text>
+  <rect x="670" y="334" width="142" height="48" rx="24" fill="#FFFFFF" fill-opacity=".14"/>
+  <text x="706" y="367" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="22" font-weight="700">更新</text>
+  <rect x="104" y="458" width="760" height="128" rx="28" fill="#EEF5F2"/>
+  <rect x="136" y="494" width="58" height="58" rx="18" fill="#4D6B57"/>
+  <path d="M151 523h28M165 509v28" stroke="white" stroke-width="8" stroke-linecap="round"/>
+  <text x="220" y="512" fill="#18201D" font-family="Arial, sans-serif" font-size="28" font-weight="800">振込・送金</text>
+  <text x="220" y="552" fill="#69756F" font-family="Arial, sans-serif" font-size="22">よく使う相手にすぐ送金</text>
+  <text x="808" y="538" fill="#4D6B57" font-family="Arial, sans-serif" font-size="40" font-weight="700">›</text>
+  <rect x="104" y="618" width="230" height="150" rx="26" fill="#F6F8F7" stroke="#E1E6E2"/>
+  <rect x="364" y="618" width="230" height="150" rx="26" fill="#F6F8F7" stroke="#E1E6E2"/>
+  <rect x="634" y="618" width="230" height="150" rx="26" fill="#F6F8F7" stroke="#E1E6E2"/>
+  <circle cx="166" cy="676" r="28" fill="#2F6F8F"/>
+  <circle cx="426" cy="676" r="28" fill="#D96F32"/>
+  <circle cx="696" cy="676" r="28" fill="#4D6B57"/>
+  <text x="136" y="728" fill="#18201D" font-family="Arial, sans-serif" font-size="24" font-weight="800">カード</text>
+  <text x="396" y="728" fill="#18201D" font-family="Arial, sans-serif" font-size="24" font-weight="800">明細</text>
+  <text x="666" y="728" fill="#18201D" font-family="Arial, sans-serif" font-size="24" font-weight="800">資産</text>
+  <text x="104" y="836" fill="#18201D" font-family="Arial, sans-serif" font-size="30" font-weight="800">最近の取引</text>
+  <rect x="104" y="870" width="760" height="92" rx="18" fill="#FFFFFF" stroke="#EBE6DC"/>
+  <text x="136" y="914" fill="#18201D" font-family="Arial, sans-serif" font-size="24" font-weight="700">給与振込</text>
+  <text x="136" y="945" fill="#7B827D" font-family="Arial, sans-serif" font-size="20">5月25日</text>
+  <text x="686" y="929" fill="#18201D" font-family="Arial, sans-serif" font-size="28" font-weight="800">+¥420,000</text>
+  <rect x="104" y="982" width="760" height="92" rx="18" fill="#FFFFFF" stroke="#EBE6DC"/>
+  <text x="136" y="1026" fill="#18201D" font-family="Arial, sans-serif" font-size="24" font-weight="700">公共料金</text>
+  <text x="136" y="1057" fill="#7B827D" font-family="Arial, sans-serif" font-size="20">5月23日</text>
+  <text x="700" y="1041" fill="#D96F32" font-family="Arial, sans-serif" font-size="28" font-weight="800">-¥18,600</text>
+  <rect x="104" y="1118" width="760" height="86" rx="28" fill="#18201D"/>
+  <text x="358" y="1171" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="28" font-weight="800">新しい振込</text>
+</svg>
